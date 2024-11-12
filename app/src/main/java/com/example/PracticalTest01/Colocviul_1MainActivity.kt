@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class Colocviul_1MainActivity : AppCompatActivity() {
     private var nrClicks = 0
+    private var isServiceRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,14 @@ class Colocviul_1MainActivity : AppCompatActivity() {
         rButton.setOnClickListener {
             rText.text = (rText.text.toString().toInt() + 1).toString()
             nrClicks++
+        }
+
+        if(nrClicks == 4){
+            val intent = Intent(this, Colocviul_1Service::class.java).apply {
+                putExtra("num", nrClicks)
+            }
+            startService(intent)
+            isServiceRunning = true
         }
 
         navButton.setOnClickListener{
@@ -85,6 +94,17 @@ class Colocviul_1MainActivity : AppCompatActivity() {
             }
             // Afișează rezultatul într-un Toast
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Oprește serviciul dacă este în execuție când activitatea este distrusă
+        if (isServiceRunning) {
+            val intent = Intent(this, Colocviul_1Service::class.java)
+            stopService(intent)
+            Toast.makeText(this, "Serviciul a fost oprit", Toast.LENGTH_SHORT).show()
         }
     }
 }

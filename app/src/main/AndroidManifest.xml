@@ -22,6 +22,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Colocviul_1SecondaryActivity" />
+        <service android:name=".Colocviul_1Service" />
+        <receiver android:name=".ColocviulReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.myapplication.ACTION_SEND_DATA" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
