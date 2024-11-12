@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PracticalTest01</string>
+    <string name="nav_button">NAVIGATE TO SECONDARY ACTIVITY</string>
+    <string name="l_text">0</string>
+    <string name="r_text">0</string>
+    <string name="l_button">PRESS ME</string>
+    <string name="r_button">PRESS ME, TOO!</string>
 </resources>
