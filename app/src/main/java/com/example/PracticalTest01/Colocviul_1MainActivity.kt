@@ -1,9 +1,12 @@
 package com.example.PracticalTest01
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -43,6 +46,15 @@ class Colocviul_1MainActivity : AppCompatActivity() {
             rText.text = (rText.text.toString().toInt() + 1).toString()
             nrClicks++
         }
+
+        navButton.setOnClickListener{
+            val intent = Intent(this, Colocviul_1SecondaryActivity::class.java)
+            intent.putExtra("total_clicks", nrClicks)
+            startActivityForResult(intent, 1)
+            nrClicks = 0
+            lText.text = getString(R.string.l_text)
+            rText.text = getString(R.string.r_text)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -61,5 +73,18 @@ class Colocviul_1MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         lText.text = savedInstanceState.getString("lTextValue")
         rText.text = savedInstanceState.getString("rTextValue")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            val message = when (resultCode) {
+                Activity.RESULT_OK -> "Rezultat: Register"
+                Activity.RESULT_CANCELED -> "Rezultat: Cancel"
+                else -> "Rezultat necunoscut"
+            }
+            // Afișează rezultatul într-un Toast
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
